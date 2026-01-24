@@ -952,21 +952,21 @@ class CineWindow(Adw.ApplicationWindow):
             opengl_init_params={"get_proc_address": proc_address_fn},
         )
         self.mpv_ctx.update_cb = lambda: GLib.idle_add(self.gl_area.queue_render)
+        self.fbo = ctypes.c_int()
 
     def _on_render_area(self, area, _context):
         if not self.mpv_ctx:
             return
         try:
-            fbo = ctypes.c_int()
-            glGetIntegerv(GL_FRAMEBUFFER_BINDING, fbo)
-            scale = area.get_scale_factor()
+            glGetIntegerv(GL_FRAMEBUFFER_BINDING, self.fbo)
+            scale = area.props.scale_factor
 
             self.mpv_ctx.render(
                 flip_y=True,
                 opengl_fbo={
                     "w": int(area.get_width() * scale),
                     "h": int(area.get_height() * scale),
-                    "fbo": fbo.value,
+                    "fbo": self.fbo.value,
                 },
             )
         except Exception as e:
