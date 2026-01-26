@@ -350,11 +350,11 @@ class CineWindow(Adw.ApplicationWindow):
 
         if settings:
             layout = settings.get_property("gtk-decoration-layout")
+
             if is_fullscreen:
-                if "close" in layout.split(":")[0]:
-                    self.headerbar.set_decoration_layout("close:")
-                else:
-                    self.headerbar.set_decoration_layout(":close")
+                left_side, _, right_side = layout.partition(":")
+                close_only = "close:" if "close" in left_side else ":close"
+                self.headerbar.set_decoration_layout(close_only)
             else:
                 self.headerbar.set_decoration_layout(layout)
 
@@ -723,8 +723,8 @@ class CineWindow(Adw.ApplicationWindow):
         if duration == 0:
             self.video_progress_scale.set_sensitive(False)
             return
-        else:
-            self.video_progress_scale.set_sensitive(True)
+
+        self.video_progress_scale.set_sensitive(True)
 
         self.video_progress_adjustment.set_upper(duration)
 
@@ -807,9 +807,10 @@ class CineWindow(Adw.ApplicationWindow):
                     self.drop_icon.props.icon_name = "media-view-subtitles-symbolic"
                     self.drop_label.props.label = _("Add Subtitle Track")
                     return
-                else:
-                    self.drop_icon.props.icon_name = "list-add-symbolic"
-                    self.drop_label.props.label = _("Add to Playlist")
+
+                self.drop_icon.props.icon_name = "list-add-symbolic"
+                self.drop_label.props.label = _("Add to Playlist")
+
             except GLib.Error as e:
                 toast = Adw.Toast.new(_("File Error") + f": {e.message}")
                 self.toast_overlay.add_toast(toast)
