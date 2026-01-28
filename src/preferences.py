@@ -34,19 +34,19 @@ def sync_mpv_with_settings(window):
 class Preferences(Adw.Dialog):
     __gtype_name__ = "Preferences"
 
-    open_new_row = Gtk.Template.Child()
-    color_dialog_button = Gtk.Template.Child()
-    sub_color_row = Gtk.Template.Child()
-    reset_sub_color = Gtk.Template.Child()
-    reset_sub_font = Gtk.Template.Child()
-    font_row = Gtk.Template.Child()
-    font_label = Gtk.Template.Child()
-    subtitle_scale_row = Gtk.Template.Child()
-    subtitle_lang_row = Gtk.Template.Child()
-    audio_lang_row = Gtk.Template.Child()
-    hwdec_row = Gtk.Template.Child()
-    normalize_volume_row = Gtk.Template.Child()
-    save_position_switch = Gtk.Template.Child()
+    open_new_row: Adw.SwitchRow = Gtk.Template.Child()
+    color_dialog_button: Gtk.ColorDialogButton = Gtk.Template.Child()
+    sub_color_row: Adw.ActionRow = Gtk.Template.Child()
+    reset_sub_color: Gtk.Button = Gtk.Template.Child()
+    reset_sub_font: Gtk.Button = Gtk.Template.Child()
+    font_row: Adw.ActionRow = Gtk.Template.Child()
+    font_label: Gtk.Label = Gtk.Template.Child()
+    subtitle_scale_row: Adw.SpinRow = Gtk.Template.Child()
+    subtitle_lang_row: Adw.EntryRow = Gtk.Template.Child()
+    audio_lang_row: Adw.EntryRow = Gtk.Template.Child()
+    hwdec_row: Adw.SwitchRow = Gtk.Template.Child()
+    normalize_volume_row: Adw.SwitchRow = Gtk.Template.Child()
+    save_position_switch: Gtk.Switch = Gtk.Template.Child()
 
     def __init__(self, active_window, **kwargs):
         super().__init__(**kwargs)
