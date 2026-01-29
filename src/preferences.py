@@ -22,6 +22,8 @@ def sync_mpv_with_settings(window):
     norm_enabled = settings.get_boolean("normalize-volume")
 
     if hwdec_enabled:
+        player.command_async("vf", "remove", "@hflip")
+        player.command_async("vf", "remove", "@vflip")
         player["hwdec"] = window.conf_hwdec + ["auto"]
     else:
         player["hwdec"] = "no"
@@ -164,6 +166,8 @@ class Preferences(Adw.Dialog):
     def _on_hwdec_changed(self, settings, _key):
         hwdec_enabled = settings.get_boolean("hwdec")
         if hwdec_enabled:
+            self.player.command_async("vf", "remove", "@hflip")
+            self.player.command_async("vf", "remove", "@vflip")
             self.player["hwdec"] = self.win.conf_hwdec + ["auto"]
         else:
             self.player["hwdec"] = "no"
