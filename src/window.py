@@ -963,9 +963,9 @@ class CineWindow(Adw.ApplicationWindow):
         self._show_ui()
         self._hide_ui_timeout()
 
-        if button != 1:
+        if mpv_button != "MBTN_LEFT":
             gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-        elif button == 1 and n_press == 2:
+        elif mpv_button == "MBTN_LEFT" and n_press == 2:
             gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
     def _on_click_released(self, gesture, _n_press, x, y):
